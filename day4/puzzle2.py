@@ -1,3 +1,10 @@
+def removeNewLineCharacter(input):
+	output = input
+	lastCharacter = output[-1]
+	if (lastCharacter == "\n"):
+		output = output[:-1]
+	return output
+
 def checkIfCorrectBYR(input):
 	if ((int(input) >= 1920) and (int(input) <= 2002)):
 		return True
@@ -14,9 +21,7 @@ def checkIfCorrectEYR(input):
 	return False
 
 def checkIfCorrectHGT(input):
-	lastCharacter = input[-1]
-	if (lastCharacter == "\n"):
-		input = input[:-1]
+	input = removeNewLineCharacter(input)
 	unit = input[-2:]
 	value = input[:-2]
 	if (unit == "cm"):	
@@ -28,9 +33,7 @@ def checkIfCorrectHGT(input):
 	return False
 
 def checkIfCorrectHCL(input):
-	lastCharacter = input[-1]
-	if (lastCharacter == "\n"):
-		input = input[:-1]
+	input = removeNewLineCharacter(input)
 	if (len(input) == 7):
 		if (input[0] == "#"):
 			counter = 1
@@ -47,46 +50,22 @@ def checkIfCorrectHCL(input):
 	return False
 
 def legalHCLCharacter(input):
-	if (input == "a"):
-		return True
-	elif (input == "b"):
-		return True
-	elif (input == "b"):
-		return True
-	elif (input == "c"):
-		return True
-	elif (input == "d"):
-		return True
-	elif (input == "e"):
-		return True
-	elif (input == "f"):
+	if ((input == "a") or (input == "b") or (input == "b") or 
+		(input == "c") or (input == "d") or (input == "e") or 
+		(input == "f")):
 		return True
 	return False
 
 def checkIfCorrectECL(input):
-	lastCharacter = input[-1]
-	if (lastCharacter == "\n"):
-		input = input[:-1]
-	if (input == "amb"):
-		return True
-	elif (input == "blu"):
-		return True
-	elif (input == "brn"):
-		return True
-	elif (input == "gry"):
-		return True
-	elif (input == "grn"):
-		return True
-	elif (input == "hzl"):
-		return True
-	elif (input == "oth"):
+	input = removeNewLineCharacter(input)
+	if ((input == "amb") or (input == "blu") or (input == "brn") or 
+		(input == "gry") or (input == "grn") or (input == "hzl") or 
+		(input == "oth")):
 		return True
 	return False
 
 def checkIfCorrectPID(input):
-	lastCharacter = input[-1]
-	if (lastCharacter == "\n"):
-		input = input[:-1]
+	input = removeNewLineCharacter(input)
 	if ((len(input) == 9) and (input.isdigit())):
 		return True
 	return False
@@ -107,26 +86,19 @@ for line in lines:
 		line1 = line.split(" ")
 		for elem in line1:
 			elem1 = elem.split(":")
-			if (elem1[0] == "byr"):
-				if (checkIfCorrectBYR(elem1[1])):
+			if ((elem1[0] == "byr") and (checkIfCorrectBYR(elem1[1]))):
 					list[0] = True
-			elif (elem1[0] == "iyr"):
-				if (checkIfCorrectIYR(elem1[1])):
+			elif ((elem1[0] == "iyr") and (checkIfCorrectIYR(elem1[1]))):
 					list[1] = True
-			elif (elem1[0] == "eyr"):
-				if (checkIfCorrectEYR(elem1[1])):
+			elif ((elem1[0] == "eyr") and (checkIfCorrectEYR(elem1[1]))):
 					list[2] = True
-			elif (elem1[0] == "hgt"):
-				if (checkIfCorrectHGT(elem1[1])):
+			elif ((elem1[0] == "hgt") and (checkIfCorrectHGT(elem1[1]))):
 					list[3] = True
-			elif (elem1[0] == "hcl"):
-				if (checkIfCorrectHCL(elem1[1])):
+			elif ((elem1[0] == "hcl") and (checkIfCorrectHCL(elem1[1]))):
 					list[4] = True
-			elif (elem1[0] == "ecl"):
-				if (checkIfCorrectECL(elem1[1])):
+			elif ((elem1[0] == "ecl") and (checkIfCorrectECL(elem1[1]))):
 					list[5] = True
-			elif (elem1[0] == "pid"):
-				if (checkIfCorrectPID(elem1[1])):
+			elif ((elem1[0] == "pid") and (checkIfCorrectPID(elem1[1]))):
 					list[6] = True
 			elif (elem1[0] == "cid"):
 				list[7] = True
