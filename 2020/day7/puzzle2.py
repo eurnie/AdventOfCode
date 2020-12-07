@@ -9,40 +9,25 @@ def createDictionary(file):
 		stringList = []
 		for string in splitComma:
 			splitSpace = string.split(' ')
+			number = splitSpace[0]
 			if (splitSpace[0] == 'no'):
 				correctString = 'none'
+				number = 0
 			else:
 				correctString = splitSpace[1] + " " + splitSpace[2]
-			stringList.append(correctString)
+			correctTuple = (correctString, number)
+			stringList.append(correctTuple)
 		dictionary[splitContain[0][:-6]] = stringList
 	return dictionary
 
-def printDictionary(dictionary):
-	for elem in dictionary:
-		print(elem, "  :  ", dictionary[elem])
-
-def numberOfBagsThatCanHoldAnInstance(dictionary, bag):
+def numberOfBagsNeeded(elem, dictionary):
 	counter = 0
-	for elem in dictionary:
-		if (elemCanHoldBag(elem, dictionary, bag)):
-			counter +=1
+	listOfSubBags = dictionary[elem]
+	for subBag in listOfSubBags:
+		if (subBag[0] != 'none'):
+			counter += int(subBag[1])
+			counter += int(subBag[1]) * numberOfBagsNeeded(subBag[0], dictionary)
 	return counter
 
-def elemCanHoldBag(elem, dictionary, bag):
-	listOfBooleans = []
-	listOfCandidates = dictionary[elem]
-	if (bag in listOfCandidates):
-		return True
-	for candidate in listOfCandidates:
-		if (candidate == 'none'):
-			listOfBooleans.append(False)
-		else:
-			listOfBooleans.append(elemCanHoldBag(candidate, dictionary, bag))
-	returnValue = False
-	for element in listOfBooleans:
-		returnValue = returnValue or element
-	return returnValue
-
 dictionary = createDictionary('input.txt')
-printDictionary(dictionary)
-print(numberOfBagsThatCanHoldAnInstance(dictionary, "shiny gold"))
+print(numberOfBagsNeeded("shiny gold", dictionary))
