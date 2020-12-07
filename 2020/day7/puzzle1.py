@@ -17,10 +17,6 @@ def createDictionary(file):
 		dictionary[splitContain[0][:-6]] = stringList
 	return dictionary
 
-def printDictionary(dictionary):
-	for elem in dictionary:
-		print(elem, "  :  ", dictionary[elem])
-
 def numberOfBagsThatCanHoldAnInstance(dictionary, bag):
 	counter = 0
 	for elem in dictionary:
