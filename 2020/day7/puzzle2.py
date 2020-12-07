@@ -22,12 +22,9 @@ def createDictionary(file):
 
 def numberOfBagsNeeded(elem, dictionary):
 	counter = 0
-	listOfSubBags = dictionary[elem]
-	for subBag in listOfSubBags:
+	for subBag in dictionary[elem]:
 		if (subBag[0] != 'none'):
-			counter += int(subBag[1])
-			counter += int(subBag[1]) * numberOfBagsNeeded(subBag[0], dictionary)
+			counter += int(subBag[1]) + (int(subBag[1]) * numberOfBagsNeeded(subBag[0], dictionary))
 	return counter
 
-dictionary = createDictionary('input.txt')
-print(numberOfBagsNeeded("shiny gold", dictionary))
+print(numberOfBagsNeeded("shiny gold", dictionary = createDictionary('input.txt')))
