@@ -15,14 +15,11 @@ def createCheckList(inputList):
 		checkList.append([inputList[x], 0])
 	for number in reversed(inputList):
 		index = inputList.index(number)
-		if (index+1 < len(inputList)):
-			if ((inputList[index+1] - inputList[index]) == 1) or ((inputList[index+1] - inputList[index]) == 3) or ((inputList[index+1] - inputList[index]) == 2):
+		if (index+1 < len(inputList)) and (reachable(inputList[index], inputList[index+1])):
 				checkList[index+1][1] += 1
-		if (index+2 < len(inputList)):
-			if ((inputList[index+2] - inputList[index]) == 1) or ((inputList[index+2] - inputList[index]) == 3) or ((inputList[index+2] - inputList[index]) == 2):
+		if (index+2 < len(inputList)) and (reachable(inputList[index], inputList[index+2])):
 				checkList[index+2][1] += 1
-		if (index+3 < len(inputList)):
-			if ((inputList[index+3] - inputList[index]) == 1) or ((inputList[index+3] - inputList[index]) == 3) or ((inputList[index+3] - inputList[index]) == 2):
+		if (index+3 < len(inputList)) and (reachable(inputList[index], inputList[index+3])):
 				checkList[index+3][1] += 1
 	checkList[0][1] = 1
 	return checkList
@@ -36,7 +33,6 @@ def calculateResult(inputList):
 			checkList[x][1] += checkList[x-2][1] -1
 		if ((x-3 > 0) and reachable(checkList[x-3][0], checkList[x][0])):
 			checkList[x][1] += checkList[x-3][1] -1
-
 	return checkList[len(checkList)-1][1]
 
 def reachable(number1, number2):
