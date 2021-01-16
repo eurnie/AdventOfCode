@@ -30,6 +30,15 @@ def simplifyExpression(line):
 		return simplifyExpression(line[:startPos] + simplifyExpression(line[startPos+1:endPos]) + line[endPos+1:])
 
 def evaluateExpression(expression):
+	if (not ('+' in expression)):
+		return evaluateExpressionLeftToRight(expression)
+	elif (not ('*' in expression)):
+		return evaluateExpressionLeftToRight(expression)
+	else:
+		newExpr = evaluateAllAddition(expression)
+		return evaluateExpressionLeftToRight(newExpr)
+
+def evaluateExpressionLeftToRight(expression):
 	counter = int(expression[0])
 	for i in range(1, len(expression)-1):
 		if (expression[i] == '+'):
@@ -37,5 +46,19 @@ def evaluateExpression(expression):
 		elif (expression[i] == '*'):
 			counter *= int(expression[i+1])
 	return counter
+
+def evaluateAllAddition(expression):
+	newExpr = expression
+	offset = 0
+	sumFound = True
+	while (sumFound):
+		sumFound = False
+		for i in range(1, len(newExpr)-1):
+			if (newExpr[i] == '+'):
+				newSum = int(newExpr[i-1]) + int(newExpr[i+1])
+				newExpr = newExpr[:(i-1)] + [str(newSum)] + newExpr[(i+2):]
+				sumFound = True
+				break
+	return newExpr
 
 print(calculateResult('input.txt'))
