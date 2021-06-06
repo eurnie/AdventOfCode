@@ -6,9 +6,10 @@ line = line.rstrip("\n")
 count = 0
 
 for x in range(0, len(line)):
-	if ( (x < len(line)-1) and (line[x] == line[x+1]) ):
-		count += int(line[x])
-	elif ( (x == len(line)-1) and (line[x] == line[0]) ):
+	size = len(line)
+	other_index = round((x + (size/2)) % (size))
+
+	if (line[x] == line[other_index]):
 		count += int(line[x])
 
 print(count)
